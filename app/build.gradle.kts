@@ -42,7 +42,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
    // implementation("net.sourceforge.tess4j:tess4j:5.7.0")
 
-    implementation ("com.github.yalantis:ucrop:2.2.8")
+    implementation ("com.github.yalantis:ucrop:2.2.9-native")
+
+    implementation("com.vanniktech:android-image-cropper:4.6.0")
 
 
 }

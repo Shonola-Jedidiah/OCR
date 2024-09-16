@@ -2,4 +2,5 @@
 <resources>
     <color name="font">#C7D1DB</color>
     <color name="Bg">#101214</color>
+    <color name="cardButton">#22272B</color>
 </resources>

@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Bg">#C7D1DB</color>
     <color name="font">#101214</color>
+    <color name="cardButton">#DEE4EA</color>
 </resources>
