@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Size;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    CameraManager cameraManager;
-    Bitmap rawImage, croppedImage;
     private Uri imageUri;
 
 
@@ -67,19 +67,15 @@ public class MainActivity extends AppCompatActivity {
         // photo picker.
         if (uri != null) {
             Log.d("PhotoPicker", "Selected URI: " + uri);
-
-
-            try {
-                rawImage = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                cropImage(rawImage);
-            } catch (FileNotFoundException e) {
-                Toast.makeText(this, "Bitmap Parse Error", Toast.LENGTH_SHORT).show();
-            }
+            cropImage(uri);
 
         } else {
             Log.d("PhotoPicker", "No media selected");
         }
     });
+
+
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
         fromCam = findViewById(R.id.fromCam);
         fromGallery = findViewById(R.id.fromGallery);
         fromLink = findViewById(R.id.fromLink);
-        //test = (ImageView) findViewById(R.id.Test);
 
-        //cameraManager = new CameraManager;
 
         fromGallery.setOnClickListener(view -> {
 
@@ -125,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (photoFile != null) {
                     try {
-                        Log.d("RRRR", "Got here");
                         imageUri = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
 
                         accessCamera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -166,42 +159,32 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
-            try {
-                rawImage = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-            } catch (FileNotFoundException e) {
-                Log.d("CamActivityResult","Failed to interpret Uri");
-            }
 
-            cropImage(rawImage);
+
+            cropImage(imageUri);
         }
     }
 
-    private void cropImage(Bitmap rawImage) {
+    private void cropImage(Uri rawImageUri) {
 
-        test.setImageBitmap(rawImage);
-        //return croppedImage;
+        Intent toCrop = new Intent(this, Crop.class);
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        rawImage.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+//        byte[] byteStream = byteArrayOutputStream.toByteArray();
+
+        toCrop.putExtra("rawImageUri",rawImageUri);
+        //toCrop.putExtra("Origin","Main");
+        startActivity(toCrop);
     }
 
-
-//    private void openCamera() {
-//        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-//        try {
-//            String cameraId = manager.getCameraIdList()[0];
-//            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
-//            StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-//            Size imageDimension = map.getOutputSizes(SurfaceTexture.class)[0];
-//
-//            // Check permission and open the camera
-//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-//                manager.openCamera(cameraId, stateCallback, null);
-//            }
-//        } catch (CameraAccessException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-//    private boolean checkForCamPermission(){
-//
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

@@ -42,9 +42,22 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
    // implementation("net.sourceforge.tess4j:tess4j:5.7.0")
 
-    implementation ("com.github.yalantis:ucrop:2.2.9-native")
-
     implementation("com.vanniktech:android-image-cropper:4.6.0")
+
+    // To recognize Latin script
+    implementation ("com.google.mlkit:text-recognition:16.0.1")
+
+    // To recognize Chinese script
+    implementation ("com.google.mlkit:text-recognition-chinese:16.0.1")
+
+    // To recognize Devanagari script
+    implementation ("com.google.mlkit:text-recognition-devanagari:16.0.1")
+
+    // To recognize Japanese script
+    implementation ("com.google.mlkit:text-recognition-japanese:16.0.1")
+
+    // To recognize Korean script
+    implementation ("com.google.mlkit:text-recognition-korean:16.0.1")
 
 
 }
