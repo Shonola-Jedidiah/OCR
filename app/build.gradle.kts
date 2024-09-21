@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.ui.graphics.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -47,17 +48,17 @@ dependencies {
     // To recognize Latin script
     implementation ("com.google.mlkit:text-recognition:16.0.1")
 
-    // To recognize Chinese script
-    implementation ("com.google.mlkit:text-recognition-chinese:16.0.1")
-
-    // To recognize Devanagari script
-    implementation ("com.google.mlkit:text-recognition-devanagari:16.0.1")
-
-    // To recognize Japanese script
-    implementation ("com.google.mlkit:text-recognition-japanese:16.0.1")
-
-    // To recognize Korean script
-    implementation ("com.google.mlkit:text-recognition-korean:16.0.1")
+//    // To recognize Chinese script
+//    implementation ("com.google.mlkit:text-recognition-chinese:16.0.1")
+//
+//    // To recognize Devanagari script
+//    implementation ("com.google.mlkit:text-recognition-devanagari:16.0.1")
+//
+//    // To recognize Japanese script
+//    implementation ("com.google.mlkit:text-recognition-japanese:16.0.1")
+//
+//    // To recognize Korean script
+//    implementation ("com.google.mlkit:text-recognition-korean:16.0.1")
 
 
 }
