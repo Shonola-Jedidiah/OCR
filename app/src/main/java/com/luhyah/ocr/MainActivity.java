@@ -140,14 +140,14 @@ public class MainActivity extends AppCompatActivity {
         fromLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getApplicationContext(), LoadImageFromInternet.class));
             }
         });
     }
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageName = "OCR_" + timeStamp + "_";
+        String imageName = "OCR_" + "_";
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File imageFile = File.createTempFile(imageName, ".png", dir);
         return imageFile;
@@ -168,12 +168,7 @@ public class MainActivity extends AppCompatActivity {
     private void cropImage(Uri rawImageUri) {
 
         Intent toCrop = new Intent(this, Crop.class);
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        rawImage.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-//        byte[] byteStream = byteArrayOutputStream.toByteArray();
-
         toCrop.putExtra("rawImageUri",rawImageUri);
-        //toCrop.putExtra("Origin","Main");
         startActivity(toCrop);
     }
 

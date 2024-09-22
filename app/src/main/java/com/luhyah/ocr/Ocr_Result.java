@@ -115,7 +115,7 @@ public class Ocr_Result extends AppCompatActivity {
                     int newPageSize = (int) (pageHeight - (y * 2));
                     double lineHeight = paint.descent() - paint.ascent();
                     int numOfLineOnPage = (int) Math.floor( (double) newPageSize / (fontSize + lineSpacing)) - (int) Math.floor( y / (fontSize + lineSpacing));
-
+                    float maxTextWidth = pageWidth - 2 * x;
                     Log.d("numtotalLines", "" + (numOfLineOnPage*lineHeight + y));
 
                     PdfDocument.Page page ;
@@ -126,9 +126,30 @@ public class Ocr_Result extends AppCompatActivity {
                         y = 50;
                         Canvas canvas = page.getCanvas();
                         for (int i =0; i < numOfLineOnPage && currentLine < totalLines; i++,currentLine++ ) {
-                            canvas.drawText(ocrTextArray[currentLine], x, (float)y, paint);
-                             y += lineHeight + lineSpacing;
+//                            canvas.drawText(ocrTextArray[currentLine], x, (float)y, paint);
+//                             y += lineHeight + lineSpacing;
+                            String line = ocrTextArray[currentLine];
+                            // Wrap the text if it's too wide for the page
+                            while (!line.isEmpty()) {
+                                int textCount = paint.breakText(line, true, maxTextWidth, null);
+                                String drawText = line.substring(0, textCount);
+                                canvas.drawText(drawText, x, (float) y, paint);
+                                y += lineHeight + lineSpacing;
+
+                                // Check if page is full
+                                if (y + lineHeight > pageHeight) {
+                                    break; // Break to move to next page
+                                }
+
+                                // Continue with remaining text if it's longer
+                                line = line.substring(textCount);
+                            }
+
+                            if (!line.isEmpty()) {
+                                break; // Break to move to next page
+                            }
                         }
+
 
                         pdfDocument.finishPage(page);
                         currentPage += 1;

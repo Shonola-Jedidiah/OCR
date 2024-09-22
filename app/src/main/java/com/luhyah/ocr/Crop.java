@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
+import com.canhub.cropper.CropImageView;
 
 public class Crop extends AppCompatActivity {
 
@@ -31,8 +32,13 @@ public class Crop extends AppCompatActivity {
             callOcrActivity.putExtra("croppedImageUri", croppedUri);
             callOcrActivity.putExtra("rawImageUri", result.getOriginalUri());
             startActivity(callOcrActivity);
+        }else{
+            Intent callMainAcivity = new  Intent(getApplicationContext(), MainActivity.class);
+            Log.d("BackBtn", "YESS");
+            startActivity(callMainAcivity);
         }
     });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,17 @@ public class Crop extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                Intent callMainAcivity = new  Intent(getApplicationContext(), MainActivity.class);
+                Log.d("BackBtn", "YESS");
+                startActivity(callMainAcivity);
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         Uri rawImageUri = recieveImageUri();
 
@@ -60,18 +77,6 @@ public class Crop extends AppCompatActivity {
 
         cropImage.launch(cropImageContractOptions);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                // Handle the back button event
-                            Intent callMainAcivity = new  Intent(getApplicationContext(), MainActivity.class);
-            Log.d("BackBtn", "YESS");
-            startActivity(callMainAcivity);
-            }
-        };
-        getOnBackPressedDispatcher().addCallback(this, callback);
-
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
     }
 
 
@@ -80,16 +85,6 @@ private Uri recieveImageUri() {
     Intent rawImageIntent = getIntent();
     return rawImageIntent.getParcelableExtra("rawImageUri");
 }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if(keyCode == KeyEvent.KEYCODE_BACK){
-//            Intent callMainAcivity = new  Intent(this, MainActivity.class);
-//            Log.d("BackBtn", "YESS");
-//            startActivity(callMainAcivity);
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
 
 }

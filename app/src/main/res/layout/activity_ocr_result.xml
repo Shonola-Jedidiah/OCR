@@ -15,13 +15,7 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/croppedImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                tools:srcCompat="@drawable/clipboard"
-                />
+
             <!--CHANGE EDIT TEXT HEIGHT TO WRAP CONTENT IN PRODUCTION-->
             <EditText
                 android:id="@+id/ocrOutput"
@@ -31,7 +25,8 @@
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:textColor="@color/font"
-
+                android:maxLines="25"
+                android:scrollbars="vertical"
                 android:fontFamily="@font/nunito_medium"/>
 
             <LinearLayout
@@ -105,7 +100,13 @@
 
             </LinearLayout>
 
-
+            <ImageView
+                android:id="@+id/croppedImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:srcCompat="@drawable/clipboard"
+                />
         </LinearLayout>
 
 </ScrollView>
