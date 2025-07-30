@@ -69,7 +69,7 @@ public class Ocr_Result extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // SAVE TEXT FILE
-        if (requestCode == SAVE_TXT && resultCode == RESULT_OK) {
+        if (requestCode == SAVE_TXT && resultCode == RESULT_OK  ) {
             if (data != null) {
                 filePath = data.getData();
                 try {

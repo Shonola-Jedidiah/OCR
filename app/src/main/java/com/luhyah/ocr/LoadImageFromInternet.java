@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,8 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
